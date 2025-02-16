@@ -1,150 +1,39 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
+import React from "react";
+import SingleItem from "./SingleItem";
+import { Link, useLocation } from "react-router-dom";
 
-const ItemList = () => {
-    return (
-        <div className="item-list">
-            <div className="item-list__header">
-                <h2>Artistas populares</h2>
-                <a className="item-list__link" href="/">
-                    Mostrar tudo
-                </a>
-            </div>
+const ItemList = ({ title, items, itemsArray, path, idPath }) => {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const finalItems = isHome ? items : Infinity;
 
-            <div className="item-list__container">
-                <div className="single-item">
-                    <div className="single-item__div-image-button">
-                        <div className="single-item__div-image">
-                            <img
-                                className="single-item__image"
-                                src="https://i.scdn.co/image/ab676161000051744dcd8a3bff84cd7703892cf4"
-                                alt="Imagem do Artista X"
-                            />
-                        </div>
+  return (
+    <div className="item-list">
+      <div className="item-list__header">
+        <h2>{title} populares</h2>
 
-                        <FontAwesomeIcon
-                            className='single-item__icon'
-                            icon={faCirclePlay}
-                        />
-                    </div>
+        {isHome ? (
+          <Link to={path} className="item-list__link">
+            Mostrar tudo
+          </Link>
+        ) : (
+          <></>
+        )}
+      </div>
 
-                    <div className="single-item__texts ">
-                        <div className="single-item__2lines">
-                            <p className='single-item__title'>
-                                Henrique & Juliano
-                            </p>
-                        </div>
-                        <p className='single-item__type'>Artista</p>
-                    </div>
-                </div>
+      <div className="item-list__container">
+        {itemsArray
+          .filter((currentValue, index) => index < finalItems)
+          .map((currObj, index) => (
+            <SingleItem
+              idPath={idPath}
+              {...currObj}
+              key={`${title}-${index}`}
+            />
+          ))}
+      </div>
+    </div>
+  );
+};
 
-                <div className="single-item">
-                    <div className="single-item__div-image-button">
-                        <div className="single-item__div-image">
-                            <img
-                                className="single-item__image"
-                                src="https://i.scdn.co/image/ab676161000051744dcd8a3bff84cd7703892cf4"
-                                alt="Imagem do Artista X"
-                            />
-                        </div>
-
-                        <FontAwesomeIcon
-                            className='single-item__icon'
-                            icon={faCirclePlay}
-                        />
-                    </div>
-
-                    <div className="single-item__texts ">
-                        <div className="single-item__2lines">
-                            <p className='single-item__title'>
-                                Henrique & Juliano
-                            </p>
-                        </div>
-                        <p className='single-item__type'>Artista</p>
-                    </div>
-                </div>
-
-                <div className="single-item">
-                    <div className="single-item__div-image-button">
-                        <div className="single-item__div-image">
-                            <img
-                                className="single-item__image"
-                                src="https://i.scdn.co/image/ab676161000051744dcd8a3bff84cd7703892cf4"
-                                alt="Imagem do Artista X"
-                            />
-                        </div>
-
-                        <FontAwesomeIcon
-                            className='single-item__icon'
-                            icon={faCirclePlay}
-                        />
-                    </div>
-
-                    <div className="single-item__texts ">
-                        <div className="single-item__2lines">
-                            <p className='single-item__title'>
-                                Henrique & Juliano
-                            </p>
-                        </div>
-                        <p className='single-item__type'>Artista</p>
-                    </div>
-                </div>
-
-                <div className="single-item">
-                    <div className="single-item__div-image-button">
-                        <div className="single-item__div-image">
-                            <img
-                                className="single-item__image"
-                                src="https://i.scdn.co/image/ab676161000051744dcd8a3bff84cd7703892cf4"
-                                alt="Imagem do Artista X"
-                            />
-                        </div>
-
-                        <FontAwesomeIcon
-                            className='single-item__icon'
-                            icon={faCirclePlay}
-                        />
-                    </div>
-
-                    <div className="single-item__texts ">
-                        <div className="single-item__2lines">
-                            <p className='single-item__title'>
-                                Henrique & Juliano
-                            </p>
-                        </div>
-                        <p className='single-item__type'>Artista</p>
-                    </div>
-                </div>
-
-                <div className="single-item">
-                    <div className="single-item__div-image-button">
-                        <div className="single-item__div-image">
-                            <img
-                                className="single-item__image"
-                                src="https://i.scdn.co/image/ab676161000051744dcd8a3bff84cd7703892cf4"
-                                alt="Imagem do Artista X"
-                            />
-                        </div>
-
-                        <FontAwesomeIcon
-                            className='single-item__icon'
-                            icon={faCirclePlay}
-                        />
-                    </div>
-
-                    <div className="single-item__texts ">
-                        <div className="single-item__2lines">
-                            <p className='single-item__title'>
-                                Henrique & Juliano
-                            </p>
-                        </div>
-                        <p className='single-item__type'>Artista</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
-
-export default ItemList
+export default ItemList;
